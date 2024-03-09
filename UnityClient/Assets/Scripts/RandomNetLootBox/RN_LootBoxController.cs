@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class RN_LootBoxController : MonoBehaviour
 {
+    //<summary>: This class is used to generate a random weapon from a list of weapons with different probabilities. The class has a list of WeaponProbability objects, each of which contains the name of the weapon and its probability. The GetRandomWeapon() method returns the name of a random weapon from the list, based on the probabilities of each weapon.
+    //</summary> 
     [System.Serializable]
     public class WeaponProbability
     {
