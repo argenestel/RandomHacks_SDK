@@ -1,42 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class LootBoxItem
+{
+    public string itemName;
+    public float probability;
+}
 
+[System.Serializable]
+public class LootBoxSeries
+{
+    public string seriesName;
+    public float probability;
+    public List<LootBoxItem> items = new List<LootBoxItem>();
+}
 
 public class RN_LootBoxController : MonoBehaviour
 {
-    //<summary>: This class is used to generate a random weapon from a list of weapons with different probabilities. The class has a list of WeaponProbability objects, each of which contains the name of the weapon and its probability. The GetRandomWeapon() method returns the name of a random weapon from the list, based on the probabilities of each weapon.
-    //</summary> 
-    [System.Serializable]
-    public class WeaponProbability
+    public List<LootBoxSeries> lootBoxSeries = new List<LootBoxSeries>();
+    public static UnityAction counterRandom;
+    public virtual LootBoxItem GetRandomItem()
     {
-        public string weaponName;
-        public float probability;
-    }
-
-    public List<WeaponProbability> weaponProbabilities = new List<WeaponProbability>();
-
-    public string GetRandomWeapon()
-    {
-        float totalProbability = 0f;
-        foreach (WeaponProbability wp in weaponProbabilities)
+        float totalSeriesProbability = 0f;
+        foreach (LootBoxSeries series in lootBoxSeries)
         {
-            totalProbability += wp.probability;
+            totalSeriesProbability += series.probability;
         }
 
-        float randomValue = Random.Range(0f, totalProbability);
-        float cumulativeProbability = 0f;
+        float randomSeriesValue = Random.Range(0f, totalSeriesProbability);
+        float cumulativeSeriesProbability = 0f;
 
-        foreach (WeaponProbability wp in weaponProbabilities)
+        foreach (LootBoxSeries series in lootBoxSeries)
         {
-            cumulativeProbability += wp.probability;
-            if (randomValue <= cumulativeProbability)
+            cumulativeSeriesProbability += series.probability;
+            if (randomSeriesValue <= cumulativeSeriesProbability)
             {
-                return wp.weaponName;
+                int randomItemIndex = Random.Range(0, series.items.Count);
+                counterRandom?.Invoke();
+                return series.items[randomItemIndex];
             }
         }
 
-        return string.Empty;
+        return null;
     }
 }
