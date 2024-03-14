@@ -660,7 +660,8 @@ namespace Aptos.Unity.Rest
                 encodedSubmission = _encodedSubmission;
             }, txnRequestJson));
             yield return cor_encodedSubmission;
-
+            // Debug
+            Debug.Log(encodedSubmission);
             byte[] toSign = StringToByteArray(encodedSubmission.Trim('"')[2..]);
 
             ///////////////////////////////////////////////////////////////////////

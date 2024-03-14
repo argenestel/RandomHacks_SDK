@@ -1,90 +1,146 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Aptos.Accounts;
 using Aptos.HdWallet;
 using Aptos.Unity.Rest;
 using Aptos.Unity.Rest.Model;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Playsphere.RandomSDK.U64
 {
     public class RNMoveU64ClientController : MonoBehaviour
     {
         [SerializeField] private string _functionName;
+        [SerializeField] private string _resources;
+        public static UnityAction<string> resourcesResponse;
 
-        private void Start()
-        {
-            RestClient.Instance.SetEndPoint("https://fullnode.random.aptoslabs.com/v1");
-            // StartCoroutine(OnCallRandomFunction());
-        }
 
-        public IEnumerator OnCallRandomFunction()
-        {
-            TransactionPayload payload = new TransactionPayload()
+        public IEnumerator SubmitRandomTransaction(){
+            RestClient.Instance.SetEndPoint(Constants.RANDOMNET);
+
+            LedgerInfo ledgerInfo = new LedgerInfo();
+            ResponseInfo responseInfo = new ResponseInfo();
+            Coroutine ledgerInfoCor = StartCoroutine(RestClient.Instance.GetInfo((_ledgerInfo, _responseInfo) =>
             {
+                ledgerInfo = _ledgerInfo;
+                responseInfo = _responseInfo;
+            }));
+            yield return ledgerInfoCor;
+
+            if(responseInfo.status != ResponseInfo.Status.Success)
+            {
+                Debug.LogError(responseInfo.message);
+                yield break;
+            }
+
+            Debug.Log("Chain ID: " + ledgerInfo.ChainId);
+
+            Transaction transferTxn = new Transaction();
+
+
+             TransactionPayload txpayload = new TransactionPayload {
                 Type = Constants.ENTRY_FUNCTION_PAYLOAD,
                 Function = _functionName,
-                TypeArguments = new string[] { },
+                TypeArguments = new string[] {  },
                 Arguments = new Arguments()
                 {
-                    ArgumentStrings = new string[] { }
+                    ArgumentStrings = new string[] {  }
                 }
             };
-
-            ResponseInfo responseInfo = new ResponseInfo();
-            Transaction transferTxn = new Transaction();
-            Account account = new Account();
-
-            Coroutine fundAliceAccountCor = StartCoroutine(FaucetClient.Instance.FundAccount((success, fundResponseInfo) =>
+            Account account = new Wallet(PlayerPrefs.GetString("Mnemonic")).Account;
+            Coroutine Transact = StartCoroutine(RestClient.Instance.SubmitTransaction((_transaction, _responseInfo) =>
             {
-                responseInfo = fundResponseInfo;
-            }, account.AccountAddress.ToString(), 100000000, "https://faucet.random.aptoslabs.com/"));
-            yield return fundAliceAccountCor;
-            Debug.Log(account.AccountAddress);
-            // Create wait for Transaction Coroutine
-            bool waitForTxnSuccess = false;
-            // string transactionHash = "";
-            AccountResourceCoin.Coin accountData = new AccountResourceCoin.Coin();
-            Coroutine getAccountFunds = StartCoroutine(RestClient.Instance.GetAccountBalance((_account, _responseInfo) =>
-            {
-                accountData = _account;
+                transferTxn = _transaction;
                 responseInfo = _responseInfo;
-            }, account.AccountAddress));
-            yield return getAccountFunds;
-            Debug.Log(accountData.Value);
-            
-         
+            }, account, txpayload));
 
-            Coroutine SubmitTransactionCor = StartCoroutine(RestClient.Instance.SubmitTransaction((transaction, submitResponseInfo) =>
-            {
-                transferTxn = transaction;
-                responseInfo = submitResponseInfo;
-            }, account, payload));
-            yield return SubmitTransactionCor;
+            yield return Transact;
 
-            if (responseInfo.status != ResponseInfo.Status.Success)
+            if(responseInfo.status != ResponseInfo.Status.Success)
             {
                 Debug.LogWarning("Transfer failed: " + responseInfo.message);
                 yield break;
             }
 
             Debug.Log("Transfer Response: " + responseInfo.message);
-            string transactionHash = transferTxn.Hash;
+            string transactionHash2 = transferTxn.Hash;
             Debug.Log("Transfer Response Hash: " + transferTxn.Hash);
-            Coroutine waitForTransactionCor = StartCoroutine(
+
+            bool waitForTxnSuccess2 = false;
+            Coroutine waitForTransactionCor2 = StartCoroutine(
                 RestClient.Instance.WaitForTransaction((_pending, _responseInfo) =>
                 {
-                    waitForTxnSuccess = _pending;
+                    waitForTxnSuccess2 = _pending;
                     responseInfo = _responseInfo;
-                }, transactionHash)
+                }, transactionHash2)
             );
-            yield return waitForTransactionCor;
+            yield return waitForTransactionCor2;
 
-            if (!waitForTxnSuccess)
+            if(!waitForTxnSuccess2)
             {
-                Debug.LogWarning("Transaction was not found. Breaking out of example: Error: " + responseInfo.message);
+                Debug.LogWarning("Transaction was not found. Breaking out of example", gameObject);
                 yield break;
             }
         }
+
+
+
+        public IEnumerator CallRandomNumberEnum(){
+            StartCoroutine(SubmitRandomTransaction());
+            ResponseInfo responseInfo = new ResponseInfo();
+            Transaction transferTxn = new Transaction();
+            Account account = new Wallet(PlayerPrefs.GetString("Mnemonic")).Account;
+
+            Coroutine Transact = StartCoroutine(RestClient.Instance.GetAccountResource((_isSuccess, _long, _responseInfo) =>
+            {
+                print(_responseInfo);
+                if(_isSuccess){
+                resourcesResponse?.Invoke(_responseInfo);
+                }
+            }, account.AccountAddress , _resources));
+            yield return Transact;
+           
+            if(responseInfo.status != ResponseInfo.Status.Success)
+            {
+                Debug.LogWarning("Transfer failed: " + responseInfo.message);
+                yield break;
+            }
+        }
+
+
+// EDITOR Functionality
+        public void CallRandomNumber(){
+            StartCoroutine(CallRandomNumberEnum());
+        
+        }
+        public void OnCallRandomFunctionEditor()
+        {
+             StartCoroutine(SubmitRandomTransaction()); 
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(RNMoveU64ClientController))]
+    public class MoveAccountCreationEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+            RNMoveU64ClientController controller = (RNMoveU64ClientController)target;
+            if (GUILayout.Button("Submit Transaction"))
+            {
+                controller.OnCallRandomFunctionEditor();
+            }
+
+            if(GUILayout.Button("Call Random Number"))
+            {
+                controller.CallRandomNumber();
+            }
+        }
+    }
+#endif
+        
 }
