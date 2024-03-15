@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Playsphere.RandomSDK.U64;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,17 +21,38 @@ public class LootBoxSeries
 
 public class RN_LootBoxController : MonoBehaviour
 {
+    private ulong ranVal;
+    private ulong maxranVal;
     public List<LootBoxSeries> lootBoxSeries = new List<LootBoxSeries>();
     public static UnityAction counterRandom;
+    public RNMoveU64ClientController rNMoveU64ClientController;
+
+    void OnEnable()
+    {
+        u64_ResourcesConverter.RNRandom += OnRNRandom;
+    }
+
+    private void OnRNRandom(ulong val, ulong maxval)
+    {
+        ranVal = val;
+        maxranVal = maxval;
+        // GetRandomItem();
+    }
+
+    public void CallRandomFunction(){
+        rNMoveU64ClientController.CallRandomNumber();
+    }
+
     public virtual LootBoxItem GetRandomItem()
     {
+
         float totalSeriesProbability = 0f;
         foreach (LootBoxSeries series in lootBoxSeries)
         {
             totalSeriesProbability += series.probability;
         }
 
-        float randomSeriesValue = Random.Range(0f, totalSeriesProbability);
+        float randomSeriesValue = (float)ranVal/maxranVal * totalSeriesProbability;
         float cumulativeSeriesProbability = 0f;
 
         foreach (LootBoxSeries series in lootBoxSeries)
@@ -38,7 +60,7 @@ public class RN_LootBoxController : MonoBehaviour
             cumulativeSeriesProbability += series.probability;
             if (randomSeriesValue <= cumulativeSeriesProbability)
             {
-                int randomItemIndex = Random.Range(0, series.items.Count);
+                int randomItemIndex = (int)((float)ranVal/maxranVal* series.items.Count);
                 counterRandom?.Invoke();
                 return series.items[randomItemIndex];
             }

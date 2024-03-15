@@ -7,6 +7,27 @@ using UnityEngine.Networking;
 public class RN_MatchmakingController : MonoBehaviour
 {
     public List<string> waitingPlayers = new List<string>();
+    public ulong maxranVal;
+    public ulong ranVal;
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    void OnEnable()
+    {
+        u64_ResourcesConverter.RNRandom += OnRNRandom;
+    }
+
+    private void OnRNRandom(ulong val, ulong maxVal)
+    {
+        ranVal = val;
+        maxranVal = maxVal;
+    }
+
+    void OnDisable()
+    {
+        u64_ResourcesConverter.RNRandom -= OnRNRandom;
+    }
+
 
     public void AddPlayerToMatchmaking(string player)
     {
@@ -18,11 +39,13 @@ public class RN_MatchmakingController : MonoBehaviour
     {
         if (waitingPlayers.Count >= 2)
         {
-            int randomIndex1 = Random.Range(0, waitingPlayers.Count);
+            // int randomIndex1 = Random.Range(0, waitingPlayers.Count);
+            int randomIndex1 = (int)((float)ranVal/maxranVal * waitingPlayers.Count);
+            int randomIndex2 = (int)((float)ranVal/maxranVal * waitingPlayers.Count);
             string player1 = waitingPlayers[randomIndex1];
             waitingPlayers.RemoveAt(randomIndex1);
 
-            int randomIndex2 = Random.Range(0, waitingPlayers.Count);
+            // int randomIndex2 = Random.Range(0, waitingPlayers.Count);
             string player2 = waitingPlayers[randomIndex2];
             waitingPlayers.RemoveAt(randomIndex2);
 
@@ -33,12 +56,13 @@ public class RN_MatchmakingController : MonoBehaviour
      public void MatchAllPlayers()
     {
         while (waitingPlayers.Count >= 2)
-        {
-            int randomIndex1 = Random.Range(0, waitingPlayers.Count);
+        {            int randomIndex1 = (int)((float)ranVal/maxranVal * waitingPlayers.Count);
+            int randomIndex2 = (int)((float)ranVal/maxranVal * waitingPlayers.Count);
+            // int randomIndex1 = Random.Range(0, waitingPlayers.Count);
             string player1 = waitingPlayers[randomIndex1];
             waitingPlayers.RemoveAt(randomIndex1);
 
-            int randomIndex2 = Random.Range(0, waitingPlayers.Count);
+            // int randomIndex2 = Random.Range(0, waitingPlayers.Count);
             string player2 = waitingPlayers[randomIndex2];
             waitingPlayers.RemoveAt(randomIndex2);
 

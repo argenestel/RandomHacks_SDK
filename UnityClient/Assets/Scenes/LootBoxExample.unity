@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1435967}
   - component: {fileID: 1435968}
-  - component: {fileID: 1435970}
   - component: {fileID: 1435971}
   m_Layer: 0
   m_Name: Manager
@@ -171,19 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootboxSystem: {fileID: 1435971}
   lootbox: {fileID: 1275070920}
---- !u!114 &1435970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1435966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627202120650b6ba3984eaec3b3a4c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _functionName: 0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46::RandomnessTest4::generate_random_u64
 --- !u!114 &1435971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +204,7 @@ MonoBehaviour:
       probability: 0.11476868
     - itemName: Series 1-Item 9
       probability: 0.5132293
+  rNMoveU64ClientController: {fileID: 1731206981}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +783,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1731206979}
   - component: {fileID: 1731206978}
+  - component: {fileID: 1731206981}
+  - component: {fileID: 1731206980}
   m_Layer: 0
   m_Name: EditorScriptsManager
   m_TagString: Untagged
@@ -815,6 +804,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c6bda23dca715a8baf3865c636d3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EndPoint: https://fullnode.random.aptoslabs.com/v1
+  faucetEndpoint: https://faucet.random.aptoslabs.com
 --- !u!4 &1731206979
 Transform:
   m_ObjectHideFlags: 0
@@ -830,6 +821,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731206980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731206977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9170721ebc3c28387b80d61b6bc6b7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1731206981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731206977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627202120650b6ba3984eaec3b3a4c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _functionName: 0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46::RandomnessTest4::generate_random_u64
+  _resources: 0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46::RandomnessTest4::RandomNumber
 --- !u!1 &2010999052
 GameObject:
   m_ObjectHideFlags: 0

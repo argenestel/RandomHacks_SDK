@@ -8,6 +8,8 @@ public class PityLootBoxController : RN_LootBoxController
     public int maxPityCounter = 10;
     public LootBoxSeries guaranteedSeries;
     public LootBoxItem guaranteedItem;
+    private ulong ranval;
+    private ulong maxranVal;
     private int callCount = 0;
 
     /// <summary>
@@ -16,6 +18,13 @@ public class PityLootBoxController : RN_LootBoxController
     void OnEnable()
     {
         RN_LootBoxController.counterRandom += OnPityCounter;
+        u64_ResourcesConverter.RNRandom += OnRNRandom;
+    }
+
+    private void OnRNRandom(ulong val, ulong maxval)
+    {
+        ranval = val;
+        maxranVal = maxval;
     }
 
     /// <summary>
@@ -39,7 +48,7 @@ public class PityLootBoxController : RN_LootBoxController
 
             if (guaranteedSeries != null)
             {
-                int randomItemIndex = UnityEngine.Random.Range(0, guaranteedSeries.items.Count);
+                int randomItemIndex = (int)((float)ranval/maxranVal * guaranteedSeries.items.Count);
                 return guaranteedSeries.items[randomItemIndex];
             }
             else if (guaranteedItem != null)
