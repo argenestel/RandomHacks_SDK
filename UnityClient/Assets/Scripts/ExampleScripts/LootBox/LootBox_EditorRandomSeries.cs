@@ -35,6 +35,10 @@ public class LootBox_EditorRandomSeries : Editor
                 LootBoxItem item = new LootBoxItem();
                 item.itemName =  "Series " + (i + 1) + "-"+ "Item " + (j + 1);
                 item.probability = Random.Range(0.1f, 1f);
+                GameObject[] prefabs = Resources.LoadAll<GameObject>("GachaObject");
+                item.itemPrefab = prefabs[Random.Range(0, prefabs.Length)]; 
+                // item.itemPrefab.name = item.itemName;
+
                 series.items.Add(item);
             }
 

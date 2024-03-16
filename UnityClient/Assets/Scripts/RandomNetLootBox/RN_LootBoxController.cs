@@ -9,6 +9,7 @@ public class LootBoxItem
 {
     public string itemName;
     public float probability;
+    public GameObject itemPrefab;
 }
 
 [System.Serializable]
@@ -45,6 +46,9 @@ public class RN_LootBoxController : MonoBehaviour
 
     public virtual LootBoxItem GetRandomItem()
     {
+        //This is for testing Unity
+        rNMoveU64ClientController.CallRandomNumber();
+        //
 
         float totalSeriesProbability = 0f;
         foreach (LootBoxSeries series in lootBoxSeries)

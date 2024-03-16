@@ -10,7 +10,7 @@ public class LootBoxOpener : MonoBehaviour
     public void OpenLootbox()
     {
         LootBoxItem randomWeapon = lootboxSystem.GetRandomItem();
-        Debug.Log("You got a: " + randomWeapon.itemName);
+        Debug.Log("You got a: " + randomWeapon.itemPrefab.name);
         // Add your logic to handle the obtained weapon
         lootbox.Play();
     }

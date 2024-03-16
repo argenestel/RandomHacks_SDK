@@ -184,26 +184,140 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootBoxSeries:
   - seriesName: Series 1
-    probability: 0.22749603
+    probability: 0.32859057
     items:
     - itemName: Series 1-Item 1
-      probability: 0.572507
+      probability: 0.8606249
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
     - itemName: Series 1-Item 2
-      probability: 0.7194049
+      probability: 0.2833863
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
     - itemName: Series 1-Item 3
-      probability: 0.12315358
+      probability: 0.2665184
+      itemPrefab: {fileID: 1141309035379116954, guid: 6e36918bc4355bdeebb527a3ab697fc1,
+        type: 3}
     - itemName: Series 1-Item 4
-      probability: 0.3582894
+      probability: 0.14891341
+      itemPrefab: {fileID: 7079919218563593500, guid: e52f0d8f058121b6c8760f0d9accbc45,
+        type: 3}
     - itemName: Series 1-Item 5
-      probability: 0.37692794
-    - itemName: Series 1-Item 6
-      probability: 0.167838
-    - itemName: Series 1-Item 7
-      probability: 0.16516471
-    - itemName: Series 1-Item 8
-      probability: 0.11476868
-    - itemName: Series 1-Item 9
-      probability: 0.5132293
+      probability: 0.9940334
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
+  - seriesName: Series 2
+    probability: 0.29446113
+    items:
+    - itemName: Series 2-Item 1
+      probability: 0.5224383
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
+  - seriesName: Series 3
+    probability: 0.8678469
+    items:
+    - itemName: Series 3-Item 1
+      probability: 0.26269045
+      itemPrefab: {fileID: 4205521026231025682, guid: fbe179cf40edcb789bf463f750509053,
+        type: 3}
+    - itemName: Series 3-Item 2
+      probability: 0.35089475
+      itemPrefab: {fileID: 8723140022207642106, guid: 1cf781d72f3eefe85a8ca3d1fa3ab3d7,
+        type: 3}
+    - itemName: Series 3-Item 3
+      probability: 0.6376292
+      itemPrefab: {fileID: 4311248730837266121, guid: 1737f44d86f45374586f54bf5e4bbf23,
+        type: 3}
+    - itemName: Series 3-Item 4
+      probability: 0.55588675
+      itemPrefab: {fileID: 4205521026231025682, guid: fbe179cf40edcb789bf463f750509053,
+        type: 3}
+    - itemName: Series 3-Item 5
+      probability: 0.4113689
+      itemPrefab: {fileID: 3645356138423562855, guid: b98f7036793a56a69be3bdbdb65fef27,
+        type: 3}
+    - itemName: Series 3-Item 6
+      probability: 0.50099933
+      itemPrefab: {fileID: 2352997721424495953, guid: c8dd324b87f6d2e5a93c7a83f9a228a4,
+        type: 3}
+    - itemName: Series 3-Item 7
+      probability: 0.71792495
+      itemPrefab: {fileID: 1141309035379116954, guid: 6e36918bc4355bdeebb527a3ab697fc1,
+        type: 3}
+    - itemName: Series 3-Item 8
+      probability: 0.7000892
+      itemPrefab: {fileID: 4311248730837266121, guid: 1737f44d86f45374586f54bf5e4bbf23,
+        type: 3}
+  - seriesName: Series 4
+    probability: 0.44357213
+    items:
+    - itemName: Series 4-Item 1
+      probability: 0.15384051
+      itemPrefab: {fileID: 3645356138423562855, guid: b98f7036793a56a69be3bdbdb65fef27,
+        type: 3}
+    - itemName: Series 4-Item 2
+      probability: 0.5898678
+      itemPrefab: {fileID: 2352997721424495953, guid: c8dd324b87f6d2e5a93c7a83f9a228a4,
+        type: 3}
+    - itemName: Series 4-Item 3
+      probability: 0.7461608
+      itemPrefab: {fileID: 4311248730837266121, guid: 1737f44d86f45374586f54bf5e4bbf23,
+        type: 3}
+    - itemName: Series 4-Item 4
+      probability: 0.61205757
+      itemPrefab: {fileID: 2352997721424495953, guid: c8dd324b87f6d2e5a93c7a83f9a228a4,
+        type: 3}
+    - itemName: Series 4-Item 5
+      probability: 0.6933351
+      itemPrefab: {fileID: 8723140022207642106, guid: 1cf781d72f3eefe85a8ca3d1fa3ab3d7,
+        type: 3}
+    - itemName: Series 4-Item 6
+      probability: 0.102585755
+      itemPrefab: {fileID: 4205521026231025682, guid: fbe179cf40edcb789bf463f750509053,
+        type: 3}
+    - itemName: Series 4-Item 7
+      probability: 0.9175166
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
+    - itemName: Series 4-Item 8
+      probability: 0.84406966
+      itemPrefab: {fileID: 4388694800061094808, guid: 62b6555afeddb4706b337c2f60ab513d,
+        type: 3}
+  - seriesName: Series 5
+    probability: 0.42401284
+    items:
+    - itemName: Series 5-Item 1
+      probability: 0.22558178
+      itemPrefab: {fileID: 4205521026231025682, guid: fbe179cf40edcb789bf463f750509053,
+        type: 3}
+    - itemName: Series 5-Item 2
+      probability: 0.5236454
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
+    - itemName: Series 5-Item 3
+      probability: 0.40996224
+      itemPrefab: {fileID: 2352997721424495953, guid: c8dd324b87f6d2e5a93c7a83f9a228a4,
+        type: 3}
+    - itemName: Series 5-Item 4
+      probability: 0.30511624
+      itemPrefab: {fileID: 4388694800061094808, guid: 62b6555afeddb4706b337c2f60ab513d,
+        type: 3}
+    - itemName: Series 5-Item 5
+      probability: 0.23053291
+      itemPrefab: {fileID: 7079919218563593500, guid: e52f0d8f058121b6c8760f0d9accbc45,
+        type: 3}
+    - itemName: Series 5-Item 6
+      probability: 0.8490466
+      itemPrefab: {fileID: 3645356138423562855, guid: b98f7036793a56a69be3bdbdb65fef27,
+        type: 3}
+    - itemName: Series 5-Item 7
+      probability: 0.41274306
+      itemPrefab: {fileID: 7079919218563593500, guid: e52f0d8f058121b6c8760f0d9accbc45,
+        type: 3}
+    - itemName: Series 5-Item 8
+      probability: 0.76707363
+      itemPrefab: {fileID: 199669651405181594, guid: bcd3b875b8694b5c299a54844bab6cd0,
+        type: 3}
   rNMoveU64ClientController: {fileID: 1731206981}
 --- !u!1 &330585543
 GameObject:
