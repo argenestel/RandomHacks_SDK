@@ -6,6 +6,7 @@ authors = ["argenestel","saurx"]
 [addresses]
 getrandnumb="0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46"
 Varsystem="0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46"
+admin_address="0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46"
 [dev-addresses]
 
 [dependencies.AptosFramework]
