@@ -1,4 +1,4 @@
-module getrandnumb::RandomnessInt {
+module getrandnumb::RandomnessInt3 {
     use aptos_framework::randomness;
     use std::signer;
 

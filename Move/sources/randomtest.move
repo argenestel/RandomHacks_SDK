@@ -1,4 +1,4 @@
-module Varsystem::RandomnessVarSystemTest {
+module RandomVarSystem::VarRandomRewardSystem {
     use std::vector;
     use std::signer;
     use aptos_framework::account;
@@ -15,7 +15,7 @@ module Varsystem::RandomnessVarSystemTest {
         reward_winners: vector<address>,
     }
 
-    const SMART_CONTRACT_ADDRESS: address = @0xa82bcd7a9092cab8ff06caea73008aca9226e368ec5af1f14d99d36abb0a8f46; // Replace with the actual smart contract address
+    const SMART_CONTRACT_ADDRESS: address = @0x6e696592f0d65b63accb62b34881e785fe2e2a5bc8c60204d98623f26384e99b; // Replace with the actual smart contract address
     const REWARD_AMOUNT: u64 = 1000000; // Reward amount in APT (e.g., 1 APT)
     const NUM_REWARD_WINNERS: u64 = 1; // Number of reward winners
 
@@ -65,7 +65,7 @@ public entry fun add_wallet(account: &signer) acquires WalletList {
         }
     }
 
-    public entry fun end_reward(admin: &signer) acquires WalletList, RewardState {
+    public entry fun end_reward(admin: &signer, num_rewards : u64, reward_amount: u64) acquires WalletList, RewardState {
         assert!(signer::address_of(admin) == SMART_CONTRACT_ADDRESS, 1);
         assert!(exists<RewardState>(SMART_CONTRACT_ADDRESS), 2);
 
@@ -76,12 +76,12 @@ public entry fun add_wallet(account: &signer) acquires WalletList {
         let num_wallets = vector::length(&wallet_list.wallets);
 
         let i = 0;
-        while (i < NUM_REWARD_WINNERS && i < num_wallets) {
+        while (i < num_rewards && i < num_wallets) {
             let winning_index = i % num_wallets;
             let winning_wallet = *vector::borrow(&wallet_list.wallets, winning_index);
             if (!vector::contains(&reward_state.reward_winners, &winning_wallet)) {
                 vector::push_back(&mut reward_state.reward_winners, winning_wallet);
-                let reward_coins = coin::withdraw<AptosCoin>(admin, REWARD_AMOUNT);
+                let reward_coins = coin::withdraw<AptosCoin>(admin, reward_amount);
                 coin::deposit(winning_wallet, reward_coins);
             };
             i = i + 1;
