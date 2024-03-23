@@ -1,13 +1,12 @@
 [package]
-name = "BoostifySDKAlpha"
+name = "Boostify_SDK_Move_Alpha"
 version = "1.0.0"
 authors = ["argenestel","saurx"]
 
 [addresses]
-getrandnumb="0x6e696592f0d65b63accb62b34881e785fe2e2a5bc8c60204d98623f26384e99b"
-Varsystem="0x6e696592f0d65b63accb62b34881e785fe2e2a5bc8c60204d98623f26384e99b"
-admin_address="0x6e696592f0d65b63accb62b34881e785fe2e2a5bc8c60204d98623f26384e99b"
-RandomVarSystem="0x6e696592f0d65b63accb62b34881e785fe2e2a5bc8c60204d98623f26384e99b"
+getrandnumb="0x83af638081fc385750856d3db2bf47034243091869e6bce1ced66644e0ac97f4"
+admin_address="0x83af638081fc385750856d3db2bf47034243091869e6bce1ced66644e0ac97f4"
+RandomVarSystem="0x83af638081fc385750856d3db2bf47034243091869e6bce1ced66644e0ac97f4"
 [dev-addresses]
 
 [dependencies.AptosFramework]
